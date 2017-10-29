@@ -55,6 +55,8 @@
     <Compile Include="AlgorithmModels\Survival\SurvivalInstruction_Probablistic.cs" />
     <Compile Include="BaseSolution.cs" />
     <Compile Include="BaseSolver.cs" />
+    <Compile Include="BinarySolution.cs" />
+    <Compile Include="BinarySolver.cs" />
     <Compile Include="ChiSquare.cs" />
     <Compile Include="ComponentModels\IGPPop.cs" />
     <Compile Include="ComponentModels\IGPSolution.cs" />
@@ -63,21 +65,33 @@
     <Compile Include="ComponentModels\ISolution.cs" />
     <Compile Include="ComponentModels\MOOSolution.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="MetaHeuristics\Dictionary_ExtensionMethods.cs" />
     <Compile Include="DistributionModel.cs" />
     <Compile Include="FDistribution.cs" />
     <Compile Include="Gaussian.cs" />
+    <Compile Include="MetaHeuristics\GeneticAlgorithm.cs" />
+    <Compile Include="MetaHeuristics\GRASP.cs" />
     <Compile Include="Helpers\Factorial.cs" />
     <Compile Include="Helpers\Gamma.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\MergeSort.cs" />
     <Compile Include="Helpers\PolynomialHelper.cs" />
     <Compile Include="ISolver.cs" />
+    <Compile Include="MetaHeuristics\IteratedLocalSearch.cs" />
+    <Compile Include="MetaHeuristics\LearningClassifier.cs" />
+    <Compile Include="MetaHeuristics\LearningClassifierSystem.cs" />
     <Compile Include="LinearAlgebra\MatrixOp.cs" />
+    <Compile Include="MetaHeuristics\LocalSearchChain.cs" />
+    <Compile Include="MemeticAlgorithm.cs" />
+    <Compile Include="MultiStartHillClimber.cs" />
+    <Compile Include="MultiTrajectoryBinarySolver.cs" />
     <Compile Include="ProblemModels\IGPEnvironment.cs" />
     <Compile Include="ProblemModels\IGPFitnessCase.cs" />
     <Compile Include="ProblemModels\IMOOProblem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomEngine.cs" />
+    <Compile Include="MetaHeuristics\RandomSearch.cs" />
+    <Compile Include="SingleTrajectoryBinarySolver.cs" />
     <Compile Include="SpecialFunctions\ClampFunction.cs" />
     <Compile Include="SpecialFunctions\ErrorFunction.cs" />
     <Compile Include="SpecialFunctions\GammaFunction.cs" />
@@ -107,7 +121,10 @@
     <Compile Include="Statistics\StandardError.cs" />
     <Compile Include="Statistics\StdDev.cs" />
     <Compile Include="Statistics\TwoWayANOVA.cs" />
+    <Compile Include="MetaHeuristics\StochasticHillClimber.cs" />
     <Compile Include="StudentT.cs" />
+    <Compile Include="MetaHeuristics\TabuSearch.cs" />
+    <Compile Include="MetaHeuristics\VNS.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
