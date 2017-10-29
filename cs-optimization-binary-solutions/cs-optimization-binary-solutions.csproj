@@ -7,7 +7,7 @@
     <ProjectGuid>{6A4AB474-C881-45F7-85BE-0A8F6B0A8648}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>cs_optimization_binary_solutions</RootNamespace>
+    <RootNamespace>BinaryOptimization</RootNamespace>
     <AssemblyName>cs-optimization-binary-solutions</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
