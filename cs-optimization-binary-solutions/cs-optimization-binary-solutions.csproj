@@ -65,6 +65,7 @@
     <Compile Include="ComponentModels\ISolution.cs" />
     <Compile Include="ComponentModels\MOOSolution.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="MetaHeuristics\BitFlipLocalSearch.cs" />
     <Compile Include="MetaHeuristics\Dictionary_ExtensionMethods.cs" />
     <Compile Include="DistributionModel.cs" />
     <Compile Include="FDistribution.cs" />

@@ -7,14 +7,15 @@ using BinaryOptimization.MetaHeuristics;
 
 namespace BinaryOptimization
 {
-    class GeneticAlgorithm_UT
+    class MemeticAlgorithm_UT
     {
         public static void RunMain(string[] args)
         {
             int popSize = 100;
             int dimension = 1000; // solution has 1000 bits
-            GeneticAlgorithm method = new GeneticAlgorithm(popSize, dimension);
-            method.MaxIterations = 500;
+            MemeticAlgorithm method = new MemeticAlgorithm(popSize, dimension);
+            method.MaxIterations = 10;
+            method.MaxLocalSearchIterations = 1000;
 
             method.SolutionUpdated += (best_solution, step) =>
             {

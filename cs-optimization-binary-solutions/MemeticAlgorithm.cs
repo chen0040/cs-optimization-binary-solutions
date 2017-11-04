@@ -16,9 +16,64 @@ namespace BinaryOptimization.MetaHeuristics
         protected double mMutationRate = 0.1;
         protected SingleTrajectoryBinarySolver mLocalSearch = null;
         protected TerminationEvaluationMethod mLocalSearchTerminationCondition = null;
+        public int MaxLocalSearchIterations { get; set; } = 100;
+
+        public MemeticAlgorithm(int pop_size, int dimension, SingleTrajectoryBinarySolver local_search)
+        {
+            mDimension = dimension;
+            mPopSize = pop_size;
+            mMutationRate = 1.0 / dimension;
+            mSolutionGenerator = (dimen, constraints) =>
+            {
+                int[] solution = new int[dimen];
+                for (int i = 0; i < dimen; ++i)
+                {
+                    solution[i] = RandomEngine.NextBoolean() ? 1 : 0;
+                }
+                return solution;
+            };
+
+            mLocalSearch = local_search;
+            mLocalSearchTerminationCondition = (improvement, iterations)=>
+            {
+                return iterations >= MaxLocalSearchIterations;
+            };
+            
+        }
+
+        public MemeticAlgorithm(int pop_size, int dimension)
+        {
+            mDimension = dimension;
+            mPopSize = pop_size;
+            mMutationRate = 1.0 / dimension;
+            mSolutionGenerator = (dimen, constraints) =>
+            {
+                int[] solution = new int[dimen];
+                for (int i = 0; i < dimen; ++i)
+                {
+                    solution[i] = RandomEngine.NextBoolean() ? 1 : 0;
+                }
+                return solution;
+            };
+            int[] masks = new int[dimension];
+            for(int i=0; i < masks.Length; ++i)
+            {
+                masks[i] = RandomEngine.NextBoolean() ? 1 : 0;
+            }
+            mLocalSearchTerminationCondition = (improvement, iterations) =>
+            {
+                return iterations >= MaxLocalSearchIterations;
+            };
+            mLocalSearch = new BitFlipLocalSearch();
+            
+
+        }
+
 
         public MemeticAlgorithm(int pop_size, int dimension, CreateSolutionMethod solution_generator, SingleTrajectoryBinarySolver local_search, TerminationEvaluationMethod local_search_termination_condition)
         {
+            mDimension = dimension;
+            mPopSize = pop_size;
             mMutationRate = 1.0 / dimension;
             mSolutionGenerator = solution_generator;
             mLocalSearch = local_search;

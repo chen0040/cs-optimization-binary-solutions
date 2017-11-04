@@ -12,9 +12,29 @@ namespace BinaryOptimization.MetaHeuristics
 
         public int[] mMasks;
 
+        public StochasticHillClimber(int dimension)
+        {
+            mMasks = new int[dimension];
+            Dimension = dimension;
+
+            mSolutionGenerator = (x, index, constraints) =>
+            {
+                int[] x_p = (int[])x.Clone();
+                for (int i = 0; i < mMasks.Length; ++i)
+                {
+                    int j = (index + i) % x.Length;
+                    x_p[(index + i) % x_p.Length] = mMasks[i] == 1 ? x[j] = 1 - x[j] : x[j];
+                }
+                return x_p;
+            };
+
+            
+        }
+
         public StochasticHillClimber(int[] masks, CreateNeighborMethod generator = null)
         {
             mMasks = (int[])masks.Clone();
+            Dimension = masks.Length;
 
             mSolutionGenerator=generator;
 
@@ -25,7 +45,8 @@ namespace BinaryOptimization.MetaHeuristics
                         int[] x_p = (int[])x.Clone();
                         for (int i = 0; i < mMasks.Length; ++i)
                         {
-                            x_p[(index+i) % x_p.Length]= mMasks[i]==1 ? x[(index+i)]=1-x[(index+i) % x.Length] : x[(index+i) % x.Length];
+                            int j = (index + i) % x.Length;
+                            x_p[(index+i) % x_p.Length]= mMasks[i]==1 ? x[j]=1-x[j] : x[j];
                         }
                         return x_p;
                     };

@@ -13,7 +13,9 @@ namespace BinaryOptimization.MetaHeuristics
 
         protected TerminationEvaluationMethod mLocalSearchShouldTerminate;
 
-        protected SingleTrajectoryBinarySolver mLocalSearch;
+        public int MaxLocalSearchIterations { get; set; } = 20;
+
+        protected SingleTrajectoryBinarySolver mLocalSearch = new BitFlipLocalSearch();
         public SingleTrajectoryBinarySolver LocalSearch
         {
             get { return mLocalSearch; }
@@ -28,8 +30,56 @@ namespace BinaryOptimization.MetaHeuristics
 
 
         protected int[] mMasks;
-        public IteratedLocalSearch(int[] masks, TerminationEvaluationMethod local_search_should_terminate, CreateRandomNeighborhoodMethod generator = null)
+
+        public IteratedLocalSearch(int dimension)
         {
+            mMasks = new int[dimension];
+
+            for(int i=0; i < mMasks.Length; ++i)
+            {
+                mMasks[i] = RandomEngine.NextBoolean() ? 1 : 0;
+            }
+
+            mLocalSearchShouldTerminate = (improvement, iterations) =>
+            {
+                return iterations >= MaxLocalSearchIterations;
+            };
+
+            
+            mSolutionGenerator = (x, index, constraints) =>
+            {
+                int[] x_p = (int[])x.Clone();
+                for (int i = 0; i < mMasks.Length; ++i)
+                {
+                    int j = (index + i) % x.Length;
+                    x_p[(index + i) % x_p.Length] = mMasks[i] == 1 ? x[j] = 1 - x[j] : x[j];
+                }
+                return x_p;
+            };
+        }
+
+        public IteratedLocalSearch(int[] masks)
+        {
+            mLocalSearchShouldTerminate = (improvement, iterations) =>
+            {
+                return iterations >= MaxLocalSearchIterations;
+            };
+
+            mMasks = (int[])masks.Clone();
+            mSolutionGenerator = (x, index, constraints) =>
+                {
+                    int[] x_p = (int[])x.Clone();
+                    for (int i = 0; i < mMasks.Length; ++i)
+                    {
+                        int j = (index + i) % x.Length;
+                        x_p[(index + i) % x_p.Length] = mMasks[i] == 1 ? x[j] = 1 - x[j] : x[j];
+                    }
+                    return x_p;
+                };
+        }
+
+        public IteratedLocalSearch(int[] masks, TerminationEvaluationMethod local_search_should_terminate, CreateRandomNeighborhoodMethod generator = null)
+        {   
             mLocalSearchShouldTerminate = local_search_should_terminate;
 
             mMasks = (int[])masks.Clone();
@@ -41,7 +91,8 @@ namespace BinaryOptimization.MetaHeuristics
                     int[] x_p = (int[])x.Clone();
                     for (int i = 0; i < mMasks.Length; ++i)
                     {
-                        x_p[(index + i) % x_p.Length] = mMasks[i] == 1 ? x[(index + i)] = 1 - x[(index + i) % x.Length] : x[(index + i) % x.Length];
+                        int j = (index + i) % x.Length;
+                        x_p[(index + i) % x_p.Length] = mMasks[i] == 1 ? x[j] = 1 - x[j] : x[j];
                     }
                     return x_p;
                 };
