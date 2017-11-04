@@ -17,12 +17,30 @@ namespace BinaryOptimization.MetaHeuristics
 
         public GeneticAlgorithm(int pop_size, int dimension, CreateSolutionMethod solution_generator)
         {
+            mPopSize = pop_size;
             mMutationRate = 1.0 / dimension;
+            mDimension = dimension;
             mSolutionGenerator = solution_generator;
             if (mSolutionGenerator == null)
             {
                 throw new NullReferenceException();
             }
+        }
+
+        public GeneticAlgorithm(int popSize, int dimension)
+        {
+            mPopSize = popSize;
+            mMutationRate = 1.0 / dimension;
+            mDimension = dimension;
+            mSolutionGenerator = (dimen, constraints) =>
+            {
+                int[] solution = new int[dimen];
+                for(int i=0; i < dimen; ++i)
+                {
+                    solution[i] = RandomEngine.NextBoolean() ? 1 : 0;
+                }
+                return solution;
+            };
         }
 
         protected BinarySolution[] SelectParents(BinarySolution[] pop)

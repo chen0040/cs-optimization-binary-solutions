@@ -55,5 +55,13 @@ namespace BinaryOptimization
         {
             return base.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("Cost: {0}\n", Cost);
+            sb.AppendFormat("Solution: {0}", String.Join(", ", mValues));
+            return sb.ToString();
+        }
     }
 }
